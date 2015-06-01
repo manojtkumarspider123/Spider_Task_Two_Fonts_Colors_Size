@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Spider_Task_Two</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="input_text">Input Text</string>
+
+    <string-array name="font">
+        <item>Times of New Roman</item>
+        <item>Comic Sans</item>
+        <item>Cosmic Spam</item>
+        <item>FLower Comic</item>
+        <item>SF Cartoon</item>
+        <item>Debbie</item>
+    </string-array>
+    <string-array name="size">
+        <item>12</item>
+        <item>45</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+    </string-array>
+    <string-array name="color">
+        <item>BLUE</item>
+        <item>RED</item>
+        <item>YELLOW</item>
+        <item>CYAN</item>
+        <item>GREEN</item>
+        <item>GRAY</item>
+    </string-array>
+
+
+
+    <string name="title_activity_activity_show">Show</string>
+
+</resources>
