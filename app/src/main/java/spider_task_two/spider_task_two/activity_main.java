@@ -12,28 +12,38 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class activity_main extends Activity {
 
     private EditText edittext;
-    private Spinner spfont;
+    private ListView lvfont;
     private Spinner spsize;
     private Spinner spcolor;
-    private Button showbutton;
+
+    private CheckBox boldcheckbox;
+    private CheckBox italicscheckbox;
+
     public static String font[];
     public static String size[];
     public static String color[];
     String text;
     Intent i;
 
+
     String TAG_FONT = "FONT";
     String TAG_SIZE = "SIZE";
     String TAG_COLOR = "COLOR";
     String TAG_TEXT = "TEXT";
+    String TAG_BOLD = "BOLD";
+    String TAG_ITALICS = "ITALICS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +52,13 @@ public class activity_main extends Activity {
         i = new Intent(activity_main.this, activity_show.class);
 
         edittext = (EditText)findViewById(R.id.editText);
-        spfont = (Spinner)findViewById(R.id.spinner_font);
+        lvfont = (ListView)findViewById(R.id.listView);
         spsize = (Spinner)findViewById(R.id.spinner_size);
         spcolor = (Spinner)findViewById(R.id.spinner_color);
-        showbutton = (Button)findViewById(R.id.show_button);
-        showbutton.setEnabled(false);
+
+        boldcheckbox = (CheckBox)findViewById(R.id.checkBoxbold);
+        italicscheckbox=(CheckBox)findViewById(R.id.checkBoxitalics);
+
 
         font = getResources().getStringArray(R.array.font);
         size = getResources().getStringArray(R.array.size);
@@ -56,7 +68,7 @@ public class activity_main extends Activity {
         ArrayAdapter<String> size_adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, size);
         ArrayAdapter<String> color_adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, color);
 
-        spfont.setAdapter(font_adapter);
+        lvfont.setAdapter(font_adapter);
         spsize.setAdapter(size_adapter);
         spcolor.setAdapter(color_adapter);
 
@@ -70,7 +82,7 @@ public class activity_main extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                showbutton.setEnabled(true);
+
 
 
             }
@@ -78,24 +90,25 @@ public class activity_main extends Activity {
             @Override
             public void afterTextChanged(Editable s) {
                 text = s.toString();
-                showbutton.setEnabled(true);
-                i.putExtra(TAG_TEXT, text);
 
+                i.putExtra(TAG_TEXT, text);
 
 
             }
         });
 
-        spfont.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        lvfont.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 i.putExtra(TAG_FONT, position);
-            }
+                if(text!=null){
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
+                else
+                    Toast.makeText(activity_main.this, R.string.no_text, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -123,13 +136,24 @@ public class activity_main extends Activity {
             }
         });
 
-        showbutton.setOnClickListener(new View.OnClickListener() {
+
+        boldcheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(i);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                i.putExtra(TAG_BOLD, isChecked);
             }
         });
+
+        italicscheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                i.putExtra(TAG_ITALICS,isChecked);
+            }
+        });
+
     }
+
+
 
 
     @Override

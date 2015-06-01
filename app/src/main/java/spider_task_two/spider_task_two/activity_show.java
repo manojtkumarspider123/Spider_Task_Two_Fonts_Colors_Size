@@ -2,35 +2,59 @@ package spider_task_two.spider_task_two;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.Activity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.graphics.Color;
 
 
 public class activity_show extends Activity {
 
-    TextView textView;
+    private EditText text;
+    private Button exit_button;
+    boolean bold;
+    boolean italics;
+    Typeface tf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_show);
 
-        textView = (TextView)findViewById(R.id.show_text);
-        textView.setText(getIntent().getStringExtra("TEXT"));
+        text = (EditText)findViewById(R.id.show_text);
+        exit_button = (Button)findViewById(R.id.button_exit);
+
+        text.setText(getIntent().getStringExtra("TEXT"));
+
+
 
         int size = Integer.parseInt(activity_main.size[getIntent().getIntExtra("SIZE", 0)]);
-        textView.setTextSize(size);
+        text.setTextSize(size);
 
         int pos_color = getIntent().getIntExtra("COLOR",0);
         displaycolor(pos_color);
 
         int pos_font = getIntent().getIntExtra("FONT",0);
-        Typeface tf = Typeface.createFromAsset(getAssets(), displayfont(pos_font));
-        textView.setTypeface(tf);
+        tf = Typeface.createFromAsset(getAssets(), displayfont(pos_font));
+
+        bold = getIntent().getBooleanExtra("BOLD", false);
+        italics = getIntent().getBooleanExtra("ITALICS", false);
+
+        setTypeface();
 
 
+        exit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
 
 
 
@@ -43,29 +67,29 @@ public class activity_show extends Activity {
         switch(pos_color)
         {
             case 0: {
-                textView.setTextColor(Color.BLUE);
+                text.setTextColor(Color.BLUE);
                 break;
             }
 
             case 1: {
-                textView.setTextColor(Color.RED);
+                text.setTextColor(Color.RED);
                 break;
             }
 
             case 2: {
-                textView.setTextColor(Color.YELLOW);
+                text.setTextColor(Color.YELLOW);
                 break;
             }
             case 3:{
-                textView.setTextColor(Color.CYAN);
+                text.setTextColor(Color.CYAN);
                 break;
             }
             case 4:{
-                textView.setTextColor(Color.GREEN);
+                text.setTextColor(Color.GREEN);
                 break;
             }
             case 5:{
-                textView.setTextColor(Color.GRAY);
+                text.setTextColor(Color.GRAY);
                 break;
             }
 
@@ -119,6 +143,26 @@ public class activity_show extends Activity {
 
         }
 
+    }
+
+    public void setTypeface()
+    {
+        if(bold&&italics)
+        {
+            text.setTypeface(tf , tf.BOLD_ITALIC);
+        }
+        else if (bold)
+        {
+            text.setTypeface(tf , tf.BOLD);
+        }
+        else if (italics)
+        {
+            text.setTypeface(tf , tf.ITALIC);
+        }
+        else
+        {
+            text.setTypeface(tf);
+        }
     }
 
 
