@@ -76,6 +76,8 @@ public class activity_main extends Activity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+
+
             }
 
             @Override
@@ -91,6 +93,8 @@ public class activity_main extends Activity {
             public void afterTextChanged(Editable s) {
                 text = s.toString();
 
+                
+
                 i.putExtra(TAG_TEXT, text);
 
 
@@ -101,7 +105,7 @@ public class activity_main extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 i.putExtra(TAG_FONT, position);
-                if(text!=null){
+                if((text!=null)){
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 }
