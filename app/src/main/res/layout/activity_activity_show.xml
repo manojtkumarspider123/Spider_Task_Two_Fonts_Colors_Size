@@ -20,4 +20,12 @@
         android:layout_centerHorizontal="true"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:id="@+id/button_edit"
+        android:layout_above="@+id/button_exit"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

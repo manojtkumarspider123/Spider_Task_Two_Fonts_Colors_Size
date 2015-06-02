@@ -1,5 +1,6 @@
 package spider_task_two.spider_task_two;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,8 @@ public class activity_show extends Activity {
 
     private EditText text;
     private Button exit_button;
+    private Button edit_button;
+    Intent j;
     boolean bold;
     boolean italics;
     Typeface tf;
@@ -26,8 +29,11 @@ public class activity_show extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_show);
 
+        j = new Intent(activity_show.this, activity_main.class);
+
         text = (EditText)findViewById(R.id.show_text);
         exit_button = (Button)findViewById(R.id.button_exit);
+        edit_button = (Button)findViewById(R.id.button_edit);
 
         text.setText(getIntent().getStringExtra("TEXT"));
 
@@ -52,7 +58,17 @@ public class activity_show extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
+
                 System.exit(0);
+
+            }
+        });
+
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(j);
             }
         });
 

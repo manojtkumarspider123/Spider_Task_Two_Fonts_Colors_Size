@@ -91,9 +91,11 @@ public class activity_main extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                text = s.toString();
+                //text = s.toString();
 
-                
+                text = edittext.getText().toString();
+
+                Log.d("TESTING_1", "text" + text);
 
                 i.putExtra(TAG_TEXT, text);
 
@@ -105,14 +107,18 @@ public class activity_main extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 i.putExtra(TAG_FONT, position);
-                if((text!=null)){
+                Log.d("ONCLICK_TEXT"," text is" + text);
+                if(text==null || text.isEmpty()){
+                    Toast.makeText(activity_main.this, R.string.no_text, Toast.LENGTH_LONG).show();
+
+                }
+
+
+                else{
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 }
 
-
-                else
-                    Toast.makeText(activity_main.this, R.string.no_text, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -156,6 +162,8 @@ public class activity_main extends Activity {
         });
 
     }
+
+
 
 
 
