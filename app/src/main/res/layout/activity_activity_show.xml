@@ -13,19 +13,21 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/exit_button"
-        android:id="@+id/button_exit"
-        android:layout_marginBottom="82dp"
-        android:layout_alignParentBottom="true"
+        android:text="Edit"
+        android:id="@+id/button_edit"
+        android:layout_below="@id/show_text"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_margin="12dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
-        android:id="@+id/button_edit"
-        android:layout_above="@+id/button_exit"
-        android:layout_centerHorizontal="true" />
+        android:text="@string/exit_button"
+        android:id="@+id/button_exit"
+        android:layout_below="@id/button_edit"
+        android:layout_centerHorizontal="true"
+        />
+
+
 
 </RelativeLayout>
